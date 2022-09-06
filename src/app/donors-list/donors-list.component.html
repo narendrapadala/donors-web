@@ -19,17 +19,27 @@
            </div> -->
                 <div class="row" >
                     <div class="col-md-4"  *ngFor="let item of totalDonorList | paginate: { itemsPerPage: this.size,currentPage: page,totalItems: donorMemberCount}; let i =index">
-                        <div class="card mt-2">
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-md-12 text-center">
-                                        <img *ngIf="!!item?.image; else userAvatar" [src]="item?.image" class="screenShotImg"/>
+                        <div class="card shadow-sm mt-2">
+
+                            <div class="overflow-hidden">
+                                         <img *ngIf="!!item?.image; else userAvatar" [src]="item?.image" class="screenShotImg"/>
                                         <ng-template #userAvatar>
                                           <img src="/assets/noImg.jpg"  alt="..." class="screenShotImg"/>
                                         </ng-template>
+                              </div>
+                              <!-- <div class="card-body">
+                                <h6 class="card-title"></h6>
+                                <p class="card-text">
+                                </p>
+                              </div> -->
+
+                            <!-- <div class="card-body" >
+                                <div class="row">
+                                    <div class="col-md-12 text-center">
+                                       
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
                             <div class="card-footer">
                                 <h6 class="card-title">{{item?.donor}}&nbsp;({{item?.city}})</h6>
                                 <span class="text-primary d-block"><i class="fa fa-inr" aria-hidden="true"></i>&nbsp;{{item.amount | number}}</span>
