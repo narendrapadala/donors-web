@@ -1,0 +1,17 @@
+.logo{
+    height: 10em;
+    text-align: center;
+    margin-top: -12px;
+}
+
+.backgroundImg{
+   
+    background-image: url(/assets/border.jpeg);
+    background-repeat: repeat-x;
+    background-size: 7em 10em;
+
+}
+
+.numberImg{
+    height: 5em;
+}

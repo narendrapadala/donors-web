@@ -1,0 +1,51 @@
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            <div class="row">
+                <div class="col-md-12">
+                    <select id="input" class="form-control" required="required" (change)="onChangeFilter($event.target)">
+                        <label>Filter By Reference Name</label>
+                        <option *ngFor="let x of referList" [value]="x.value">{{x.name}}</option>
+                    </select>
+                </div>
+            </div>
+           <!-- <div class="row mt-3">
+            <div class="col-md-6">
+                <h5>Total Donation Count&nbsp;<span class="text-danger">{{donorMemberCount}}</span></h5>
+            </div>
+           </div> -->
+                <div class="row" >
+                    <div class="col-md-4"  *ngFor="let item of totalDonorList | paginate: { itemsPerPage: this.size,currentPage: page,totalItems: donorMemberCount}; let i =index">
+                        <div class="card mt-2">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-12 text-center">
+                                        <img *ngIf="!!item?.image; else userAvatar" [src]="item?.image" class="screenShotImg"/>
+                                        <ng-template #userAvatar>
+                                          <img src="/assets/noImg.jpg"  alt="..." class="screenShotImg"/>
+                                        </ng-template>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <h6 class="card-title">{{item?.donor}}&nbsp;({{item?.city}})</h6>
+                                <span class="text-primary d-block"><i class="fa fa-inr" aria-hidden="true"></i>&nbsp;{{item.amount | number}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+               
+           
+            <br>
+            <pagination-controls class="ngx-pagination" (click)="allMembers()" (pageChange)="page = $event" ></pagination-controls>
+            <br><br><br>
+            <br><br><br>
+        </div>
+        <div class="col-md-2"></div>
+    </div>
+    
+</div>
+

@@ -1,0 +1,66 @@
+<div class="container mt-3">
+  
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+            <form>
+                
+                <div class="form-row">
+                  <div class="form-group col-md-6">
+                    <label for="donroName">Name</label>
+                    <input type="text" name="name" class="form-control" [(ngModel)]="name" id="donroName" placeholder="Name">
+                  </div>
+                  <div class="form-group col-md-6">
+                    <label for="amount">Amount</label>
+                    <input type="number" name="amount" onKeyPress="if(this.value.length==6) return false;" class="form-control" [(ngModel)]="amount" id="amount" placeholder="Enter Amount">
+                  </div>
+                </div>
+              
+                <div class="form-row">
+                  <div class="form-group col-md-6">
+                    <label for="inputCity">City/Village</label>
+                    <input type="text" name="city" class="form-control" onKeyPress="if(this.value.length==25) return false;" id="inputCity" [(ngModel)]="city">
+                  </div>
+                  <div class="form-group col-md-6">
+                    <label for="inputState">Reference</label>
+                    <select id="inputState" class="form-control" name="reference" [(ngModel)]="reference">
+                      <option selected value="Narendra_Padala">Narendra Padala</option>
+                      <option value="Sriram_Sunkari">Sree Ram Sunkari</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="form-row">
+                  <div class="form-group col-md-6">
+                    <label for="payment">Payment</label>
+                    <select name="payment" id="payment" class="form-control" [(ngModel)]="payment">
+                      <option selected value="GooglePay">Google Pay</option>
+                      <option value="PhonePay">Phone Pay</option>
+                      <option value="paytm">Paytm</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="form-row">
+                  <div class="col-lg-6">
+                      <!-- <img [src]="this.imgURL" *ngIf="this.imgURL != null" class="img" alt="profile" />
+                      <input type="file" (change)="handleFileInput($event)" name="profile" style="display: none" #file/>
+                      <a class="text-info mt-2 d-block" (click)="file.click()">
+                        <i class="fa fa-upload" aria-hidden="true"></i> Upload Payment Screenshot
+                        </a> -->
+                        <a class="text-info" (click)="compressFile()"> <i class="fa fa-upload" aria-hidden="true"></i>&nbsp;Upload and compress Image</a>
+                        <!-- <img *ngIf="imgResultBeforeCompress" class="img" [src]="imgResultBeforeCompress" alt="" /> -->
+                        <img *ngIf="imgResultAfterCompress" class="img" [src]="imgResultAfterCompress" alt="" />
+                    </div>
+              </div>
+                  <br>
+                <button type="submit" class="btn btn-primary" [disabled]="loader" (click)="saveUserPaymentInfo()"><i class="fa fa-circle-o-notch fa-spin" *ngIf="loader" aria-hidden="true"></i>&nbsp;Save</button>&nbsp;<br>
+                    <span *ngIf="responseMsgShow" class="text-success"><i class="fa fa-check" aria-hidden="true"></i>&nbsp;Successfully Submitted</span>
+              </form>
+        </div>
+        <div class="col-md-3">
+          <!-- <img src="assets/banner.jpeg" class="bannerImg" alt=""> -->
+        </div>
+    </div>
+</div>
+
