@@ -57,14 +57,14 @@ export class CreateDonorComponent implements OnInit {
     this.imageCompress.uploadFile().then(({image, orientation}) => {
   
       this.imgResultBeforeCompression = image;
-      console.log("Size in bytes of the uploaded image was:", this.imageCompress.byteCount(image));
+      // console.log("Size in bytes of the uploaded image was:", this.imageCompress.byteCount(image));
 
       this.imageCompress.compressFile(this.imgURL, orientation, 50, 50) // 50% ratio, 50% quality
         .then(
           (compressedImage) => {
             this.imgResultAfterCompression = compressedImage;
             this.imgURL = this.imgResultAfterCompression;
-            console.log("Size in bytes after compression is now:", this.imageCompress.byteCount(compressedImage));
+            // console.log("Size in bytes after compression is now:", this.imageCompress.byteCount(compressedImage));
           }
         );
     });
@@ -77,7 +77,7 @@ export class CreateDonorComponent implements OnInit {
     return this.imageCompress.uploadFile()
       .then(({ image, orientation, fileName }: UploadResponse) => {
         this.imgResultBeforeCompress = image;
-        console.log(fileName.split('.').pop());
+        // console.log(fileName.split('.').pop());
         this.fileExtension = fileName.split('.').pop();
         this.imageCompress.compressFile(image, orientation, 50, 50).then((result: DataUrl) => {
             this.imgResultAfterCompress = result;
@@ -110,7 +110,7 @@ export class CreateDonorComponent implements OnInit {
       alert('Please Upload Payment Screenshot!');
       return;
     }
-    if(this.fileExtension != 'jpeg' && this.fileExtension != 'png' && this.fileExtension != 'gif'){
+    if(this.fileExtension != 'jpeg' && this.fileExtension != 'png' && this.fileExtension != 'gif' && this.fileExtension != 'jpg'){
       alert('Invalid File Type');
       return;
     }
@@ -124,7 +124,7 @@ export class CreateDonorComponent implements OnInit {
       "reference": this.reference,
       "createdAt": new Date().getTime()
     }
-    console.log(body)
+    // console.log(body)
 
     this.apiService.donorCreate(body).subscribe(val=>{
       console.log(val)
@@ -136,6 +136,7 @@ export class CreateDonorComponent implements OnInit {
         this.name = '';
         this.amount = '';
         this.city = '';
+        this.imgResultAfterCompress = '';
       },4000)
     },()=>{
       this.responseMsgShow = false;

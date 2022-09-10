@@ -10,12 +10,14 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import {NgxPaginationModule} from 'ngx-pagination'; 
 import {NgxImageCompressService} from "ngx-image-compress";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     CreateDonorComponent,
     DonorsListComponent,
+    LoginComponent,
   ],
   imports: [
     BrowserModule,

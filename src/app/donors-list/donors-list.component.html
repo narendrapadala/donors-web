@@ -1,25 +1,38 @@
 
 
 <div class="container">
+    
     <div class="row">
+        <div class="col-md-12">
+           <a class="float-right text-danger" (click)="logout()"><i class="fa fa-sign-out" aria-hidden="true"></i>&nbsp;Logout</a> 
+        </div>
         <div class="col-md-2"></div>
         <div class="col-md-8">
             <div class="row">
-                <div class="col-md-12">
-                    <select id="input" class="form-control" required="required" (change)="onChangeFilter($event.target)">
-                        <label>Filter By Reference Name</label>
-                        <option *ngFor="let x of referList" [value]="x.value">{{x.name}}</option>
-                    </select>
+                <div class="col-md-8">
+                    <h5 class="mt-4" *ngIf="donorMemberCount != 0">#Janasainiks<span class="text-danger">({{donorMemberCount}})</span></h5>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="filter">Filter By</label>
+                        <select id="filter" class="form-control" required="required" [(ngModel)]="referenced" (change)="onChangeFilter($event.target)">
+                            <label>Filter By Reference Name</label>
+                            <option *ngFor="let x of referList" [value]="x.value">{{x.name}}</option>
+                        </select>
+                    </div>
                 </div>
             </div>
-           <!-- <div class="row mt-3">
-            <div class="col-md-6">
-                <h5>Total Donation Count&nbsp;<span class="text-danger">{{donorMemberCount}}</span></h5>
-            </div>
-           </div> -->
-                <div class="row" >
+        
+                <div class="row mt-3" >
+
+                    <ng-container *ngIf="donorMemberCount === 0">
+                        <div class="col-md-4 text-center">
+                            <h5 class="text-secondary">No Records</h5>
+                        </div>
+                    </ng-container>
+                    
                     <div class="col-md-4"  *ngFor="let item of totalDonorList | paginate: { itemsPerPage: this.size,currentPage: page,totalItems: donorMemberCount}; let i =index">
-                        <div class="card shadow-sm mt-2">
+                        <div class="card shadow-sm mt-4">
 
                             <div class="overflow-hidden">
                                          <img *ngIf="!!item?.image; else userAvatar" [src]="item?.image" class="screenShotImg"/>
@@ -27,21 +40,8 @@
                                           <img src="/assets/noImg.jpg"  alt="..." class="screenShotImg"/>
                                         </ng-template>
                               </div>
-                              <!-- <div class="card-body">
-                                <h6 class="card-title"></h6>
-                                <p class="card-text">
-                                </p>
-                              </div> -->
-
-                            <!-- <div class="card-body" >
-                                <div class="row">
-                                    <div class="col-md-12 text-center">
-                                       
-                                    </div>
-                                </div>
-                            </div> -->
                             <div class="card-footer">
-                                <h6 class="card-title">{{item?.donor}}&nbsp;({{item?.city}})</h6>
+                                <h6 class="card-title donorName">{{item?.donor}}&nbsp;({{item?.city}})</h6>
                                 <span class="text-primary d-block"><i class="fa fa-inr" aria-hidden="true"></i>&nbsp;{{item.amount | number}}</span>
                             </div>
                         </div>

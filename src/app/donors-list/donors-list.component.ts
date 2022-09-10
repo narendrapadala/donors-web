@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { ApiService } from '../api.service';
+import { AuthServiceService } from '../auth-service.service';
 
 @Component({
   selector: 'app-donors-list',
@@ -8,16 +10,22 @@ import { ApiService } from '../api.service';
 })
 export class DonorsListComponent implements OnInit {
 
-  constructor(private api : ApiService) { }
+  constructor(private api : ApiService,private authService : AuthServiceService,private route : Router) { }
   loader : boolean = false;
   size : any = 5;
   page : any = 1;
   totalDonorList : any;
-  referenced : any = '*';
-
-  referList : any = [{name : "ALL" , value : '*'},
+  referenced : any = 'Narendra_Padala';
+ 
+  referList : any = [
+                     {name : "ALL" , value : '*'},
                      {name :"Narendra Padala" , value : "Narendra_Padala"},
-                     {name : "Sriram Sunkari",value : "Sriram_Sunkari"}]
+                     {name : "Sunkari Sriram",value : "Sunkari_Sriram"},
+                     {name : "Bhaskar Gangipamula",value : "Bhaskar_Gangipamula"},
+                     {name : "Krishana Ungarala",value : "Krishna_Ungarala"},
+                     {name : "Kiran",value : "Kiran"},
+                     {name : "Kishore B",value : "Kishore_B"},
+                    ]
 
   ngOnInit(): void {
     this.getAllDonors(this.referenced)
@@ -39,6 +47,11 @@ export class DonorsListComponent implements OnInit {
 
   allMembers(){
     this.getAllDonors(this.referenced)
+  }
+
+  logout(){
+    this.authService.setLogout(false);
+    this.route.navigate(['login'])
   }
 
 
