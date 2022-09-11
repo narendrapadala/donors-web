@@ -56,12 +56,17 @@ export class LoginComponent implements OnInit {
 
 
   ngOnInit(): void {
+    // console.log(this.authService.LoginStatus)
+      if (this.authService.LoginStatus) {
+        this.route.navigate(['/donate']);
+        return;
+      }
   }
 
   login() {
     if (this.checkUser(this.userName, this.password)) {
       this.authService.setLoginStatus(true);
-      this.route.navigate(['/list-donors'])
+      this.route.navigate(['/donate'])
     } else {
       this.showAlert = true
     }

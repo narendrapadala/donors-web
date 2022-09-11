@@ -7,6 +7,8 @@ import {
   UploadResponse,
 } from 'ngx-image-compress';
 import { TosterService } from '../toster.service';
+import { AuthServiceService } from '../auth-service.service';
+import { Route, Router } from '@angular/router';
 
 @Component({
   selector: 'app-create-donor',
@@ -21,7 +23,7 @@ export class CreateDonorComponent implements OnInit {
   imgURL: any = null;
   loader : boolean = false;
   responseMsgShow : boolean = false;;
-  constructor(private apiService : ApiService,private imageCompress: NgxImageCompressService,private tost : TosterService ) { }
+  constructor(private apiService : ApiService,private imageCompress: NgxImageCompressService,private tost : TosterService,private authService: AuthServiceService,private route : Router ) { }
 
   imgResultBeforeCompression: string = "";
   imgResultAfterCompression: string = "";
@@ -85,6 +87,11 @@ export class CreateDonorComponent implements OnInit {
             // console.log('Size in bytes is now:',this.imageCompress.byteCount(result));
           });
       });
+  }
+
+  logout(){
+    this.authService.setLogout(false);
+    this.route.navigate(['login'])
   }
 
   

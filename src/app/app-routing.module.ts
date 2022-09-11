@@ -11,7 +11,7 @@ const routes: Routes = [
     redirectTo: 'donate',
     pathMatch: 'full',
   },
-  {path:'donate',component:CreateDonorComponent},
+  {path:'donate',component:CreateDonorComponent,canActivate: [AuthGuardGuard]},
   {path:'login',component:LoginComponent},
   {path:'list-donors',component:DonorsListComponent,canActivate: [AuthGuardGuard]},
 ];
