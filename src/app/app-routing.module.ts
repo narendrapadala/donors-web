@@ -8,16 +8,24 @@ import { LoginComponent } from './login/login.component';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'donate',
+    redirectTo: 'login',
     pathMatch: 'full',
   },
-  {path:'donate',component:CreateDonorComponent,canActivate: [AuthGuardGuard]},
-  {path:'login',component:LoginComponent},
-  {path:'list-donors',component:DonorsListComponent,canActivate: [AuthGuardGuard]},
+  {
+    path: 'donate',
+    component: CreateDonorComponent,
+    canActivate: [AuthGuardGuard],
+  },
+  { path: 'login', component: LoginComponent },
+  {
+    path: 'list-donors',
+    component: DonorsListComponent,
+    canActivate: [AuthGuardGuard],
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

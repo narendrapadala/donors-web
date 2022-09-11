@@ -5,7 +5,7 @@ import { AuthServiceService } from '../auth-service.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  styleUrls: ['./login.component.css'],
 })
 export class LoginComponent implements OnInit {
   userName: any;
@@ -14,63 +14,62 @@ export class LoginComponent implements OnInit {
 
   users: any = [
     {
-      "username": "narendra",
-      "password": "Nar@123"
+      username: 'narendra',
+      password: 'Nar@123',
     },
     {
-      "username": "sriram",
-      "password": "Sriram@123$"
+      username: 'sriram',
+      password: 'Sriram@123$',
     },
     {
-      "username": "bhaskar",
-      "password": "Bhaskar@123$"
+      username: 'bhaskar',
+      password: 'Bhaskar@123$',
     },
     {
-      "username": "krishana",
-      "password": "Krishna@123$"
+      username: 'krishana',
+      password: 'Krishna@123$',
     },
     {
-      "username": "kiran",
-      "password": "Kiran@123$"
+      username: 'kiran',
+      password: 'Kiran@123$',
     },
     {
-      "username": "kishore",
-      "password": "Kishore@123$"
+      username: 'kishore',
+      password: 'Kishore@123$',
+    },
+    {
+      username: 'nanda',
+      password: 'Nanda@123$',
     },
   ];
 
-  constructor(private route: Router, private authService: AuthServiceService) { }
+  constructor(private route: Router, private authService: AuthServiceService) {}
 
   checkUser(uname: any, pswd: any) {
     var user = this.users.find(function (user: any) {
-      return user.username === uname && user.password === pswd
+      return user.username === uname && user.password === pswd;
     });
     if (user == null) {
       return false;
-    }
-    else {
+    } else {
       return true;
     }
   }
 
-
-
   ngOnInit(): void {
     // console.log(this.authService.LoginStatus)
-      if (this.authService.LoginStatus) {
-        this.route.navigate(['/donate']);
-        return;
-      }
+    if (this.authService.LoginStatus) {
+      this.route.navigate(['/donate']);
+      return;
+    }
   }
 
   login() {
     if (this.checkUser(this.userName, this.password)) {
       this.authService.setLoginStatus(true);
-      this.route.navigate(['/donate'])
+      this.route.navigate(['/donate']);
     } else {
-      this.showAlert = true
+      this.showAlert = true;
     }
   }
-
-
 }

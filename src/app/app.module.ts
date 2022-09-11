@@ -7,8 +7,8 @@ import { AppComponent } from './app.component';
 import { CreateDonorComponent } from './create-donor/create-donor.component';
 import { DonorsListComponent } from './donors-list/donors-list.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import {NgxPaginationModule} from 'ngx-pagination'; 
-import {NgxImageCompressService} from "ngx-image-compress";
+import { NgxPaginationModule } from 'ngx-pagination';
+import { NgxImageCompressService } from 'ngx-image-compress';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LoginComponent } from './login/login.component';
 
@@ -28,6 +28,6 @@ import { LoginComponent } from './login/login.component';
     BrowserAnimationsModule,
   ],
   providers: [NgxImageCompressService],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

@@ -13,32 +13,35 @@ import { Route, Router } from '@angular/router';
 @Component({
   selector: 'app-create-donor',
   templateUrl: './create-donor.component.html',
-  styleUrls: ['./create-donor.component.css']
+  styleUrls: ['./create-donor.component.css'],
 })
 export class CreateDonorComponent implements OnInit {
-
-  public imagePath:any;
+  public imagePath: any;
   imageUloadType = false;
   fileToUpload: any = null;
   imgURL: any = null;
-  loader : boolean = false;
-  responseMsgShow : boolean = false;;
-  constructor(private apiService : ApiService,private imageCompress: NgxImageCompressService,private tost : TosterService,private authService: AuthServiceService,private route : Router ) { }
+  loader: boolean = false;
+  responseMsgShow: boolean = false;
+  constructor(
+    private apiService: ApiService,
+    private imageCompress: NgxImageCompressService,
+    private tost: TosterService,
+    private authService: AuthServiceService,
+    private route: Router
+  ) {}
 
-  imgResultBeforeCompression: string = "";
-  imgResultAfterCompression: string = "";
+  imgResultBeforeCompression: string = '';
+  imgResultAfterCompression: string = '';
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
-  name : any;
-  amount : any;
-  city :any;
-  reference : any = 'Narendra_Padala';
-  payment : any = 'GooglePay';
+  name: any;
+  amount: any;
+  city: any;
+  reference: any = 'Narendra_Padala';
+  payment: any = 'GooglePay';
 
-
-  formatImg : any;
+  formatImg: any;
   handleFileInput(files: any) {
     files = files.target.files;
     // console.log(files)
@@ -52,36 +55,36 @@ export class CreateDonorComponent implements OnInit {
     //   let img:any = reader.result;
     //   // console.log(img.replace(/^[^,]+, */, ''))
     //   // this.formatImg = img.replace(/^[^,]+, */, '');
-    //   this.imgURL = reader.result;  
+    //   this.imgURL = reader.result;
     // };
 
-
-    this.imageCompress.uploadFile().then(({image, orientation}) => {
-  
+    this.imageCompress.uploadFile().then(({ image, orientation }) => {
       this.imgResultBeforeCompression = image;
       // console.log("Size in bytes of the uploaded image was:", this.imageCompress.byteCount(image));
 
-      this.imageCompress.compressFile(this.imgURL, orientation, 50, 50) // 50% ratio, 50% quality
-        .then(
-          (compressedImage) => {
-            this.imgResultAfterCompression = compressedImage;
-            this.imgURL = this.imgResultAfterCompression;
-            // console.log("Size in bytes after compression is now:", this.imageCompress.byteCount(compressedImage));
-          }
-        );
+      this.imageCompress
+        .compressFile(this.imgURL, orientation, 50, 50) // 50% ratio, 50% quality
+        .then((compressedImage) => {
+          this.imgResultAfterCompression = compressedImage;
+          this.imgURL = this.imgResultAfterCompression;
+          // console.log("Size in bytes after compression is now:", this.imageCompress.byteCount(compressedImage));
+        });
     });
   }
 
   imgResultBeforeCompress: DataUrl = '';
   imgResultAfterCompress: DataUrl = '';
-  fileExtension : any;
+  fileExtension: any;
   compressFile() {
-    return this.imageCompress.uploadFile()
+    return this.imageCompress
+      .uploadFile()
       .then(({ image, orientation, fileName }: UploadResponse) => {
         this.imgResultBeforeCompress = image;
         // console.log(fileName.split('.').pop());
         this.fileExtension = fileName.split('.').pop();
-        this.imageCompress.compressFile(image, orientation, 50, 50).then((result: DataUrl) => {
+        this.imageCompress
+          .compressFile(image, orientation, 50, 50)
+          .then((result: DataUrl) => {
             this.imgResultAfterCompress = result;
             this.imgURL = this.imgResultAfterCompress;
             // console.log('Size in bytes is now:',this.imageCompress.byteCount(result));
@@ -89,75 +92,80 @@ export class CreateDonorComponent implements OnInit {
       });
   }
 
-  logout(){
+  logout() {
     this.authService.setLogout(false);
-    this.route.navigate(['login'])
+    this.route.navigate(['login']);
   }
 
-  
-  saveUserPaymentInfo(){
-   
-    if(this.amount == undefined || this.amount == ''){
+  saveUserPaymentInfo() {
+    if (this.amount == undefined || this.amount == '') {
       alert('Please enter donated amount!');
       return;
     }
-    if(this.name == undefined || this.name == ''){
+    if (this.name == undefined || this.name == '') {
       alert('Please enter donor name!');
       return;
     }
-    if(this.city == undefined || this.city == ''){
+    if (this.city == undefined || this.city == '') {
       alert('Please enter your city or village!');
       return;
     }
-    if(this.reference == undefined || this.reference == ''){
+    if (this.reference == undefined || this.reference == '') {
       alert('Please select reference member!');
       return;
     }
-    if(this.imgURL == null){
+    if (this.imgURL == null) {
       alert('Please Upload Payment Screenshot!');
       return;
     }
-    if(this.fileExtension != 'jpeg' && this.fileExtension != 'png' && this.fileExtension != 'gif' && this.fileExtension != 'jpg'){
+    if (
+      this.fileExtension != 'jpeg' &&
+      this.fileExtension != 'png' &&
+      this.fileExtension != 'gif' &&
+      this.fileExtension != 'jpg'
+    ) {
       alert('Invalid File Type');
       return;
     }
     this.loader = true;
     let body = {
-      "donor": this.name,
-      "amount": this.amount,
-      "payment": this.payment,
-      "image": this.imgURL,
-      "city": this.city,
-      "reference": this.reference,
-      "createdAt": new Date().getTime()
-    }
+      donor: this.name,
+      amount: this.amount,
+      payment: this.payment,
+      image: this.imgURL,
+      city: this.city,
+      reference: this.reference,
+      createdAt: new Date().getTime(),
+    };
     // console.log(body)
 
-    this.apiService.donorCreate(body).subscribe(val=>{
-      console.log(val)
-      this.loader = true;
-      this.responseMsgShow = true;
-      setTimeout(()=>{
+    this.apiService.donorCreate(body).subscribe(
+      (val) => {
+        console.log(val);
+        this.loader = true;
+        this.responseMsgShow = true;
+        setTimeout(() => {
+          this.responseMsgShow = false;
+          this.loader = false;
+          this.name = '';
+          this.amount = '';
+          this.city = '';
+          this.imgResultAfterCompress = '';
+        }, 3000);
+      },
+      () => {
         this.responseMsgShow = false;
-        this.loader = false;
-        this.name = '';
-        this.amount = '';
-        this.city = '';
-        this.imgResultAfterCompress = '';
-      },4000)
-    },()=>{
-      this.responseMsgShow = false;
-    })
+      }
+    );
 
     // this.apiService.postFile(this.fileToUpload).subscribe(
     //   (data:any) => {
     //     // do something, if upload success
     //     this.imgURL = data['response'];
-       
+
     //   },
     //   (error) => {
     //     //console.log(error);
     //   });
   }
-
 }
